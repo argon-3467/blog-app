@@ -10,7 +10,7 @@
 - [x] Create [User Model](./api/models/user.model.js)
 - [x] Create [Post Model](./api/models/post.model.js)
 - [x] Create [Comment Model](./api/models/comment.model.js)
-- [ ] Implement Initial Global Error handling contoller
+- [x] Implement Initial Global Error handling [contoller](./api/controllers/error.controller.js)
 - [ ] Create Auth routes and controller
 - [ ] Create User routes and controller
 - [ ] Create a API features class with features like: filter, sort, limit, paginate
