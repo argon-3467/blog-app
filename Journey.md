@@ -5,8 +5,8 @@
 - [x] Decide API response [structure](#api-response-structure)
 - [x] Create CustomError [class](./api/utils/CustomError.js)
 - [x] Create asyncErrorHandler [function](./api/utils/asyncErrorHandler.js)
-- [ ] Plan User, Post, Comment [Schemas](./api/models/README.md)
-- [ ] Plan auth, users, posts, comments, admin [routes](./api/routes/README.md)
+- [x] Plan User, Post, Comment [Schemas](./api/models/README.md)
+- [x] Plan auth, users, posts, comments, admin [routes](./api/routes/README.md)
 
 ## Todos Client
 
