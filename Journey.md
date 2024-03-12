@@ -12,6 +12,9 @@
 - [x] Create [Comment Model](./api/models/comment.model.js)
 - [x] Implement Initial Global Error handling [contoller](./api/controllers/error.controller.js)
 - [x] Create Auth [routes](./api/routes/auth.router.js) and [controller](./api/controllers/auth.controller.js)
+- [x] Create a json file to import routes in Postman as a collection
+- [x] Write a script to populate database with dummy data
+- [x] Create Fake routes and controller files
 - [ ] Create User routes and controller
 - [ ] Create a API features class with features like: filter, sort, limit, paginate
 - [ ] Create Post routes and controller
