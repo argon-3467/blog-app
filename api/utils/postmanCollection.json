@@ -1,0 +1,263 @@
+{
+  "info": {
+    "name": "Blog Application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth Routes",
+      "item": [
+        {
+          "name": "signup",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/auth/signup"
+          }
+        },
+        {
+          "name": "signin",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/auth/signin"
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Routes",
+      "item": [
+        {
+          "name": "getMe",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/users/me"
+          }
+        },
+        {
+          "name": "updateMe",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/users/me"
+          }
+        },
+        {
+          "name": "deleteMe",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/users/me"
+          }
+        },
+        {
+          "name": "getUser",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/users/:userId"
+          }
+        },
+        {
+          "name": "deleteUser",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/users/:userId"
+          }
+        },
+        {
+          "name": "getUserPosts",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/users/:userId/posts"
+          }
+        },
+        {
+          "name": "getUserComments",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/users/:userId/comments"
+          }
+        },
+        {
+          "name": "getUsers",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/users/"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Post Routes",
+      "item": [
+        {
+          "name": "getPost",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/posts/:postId"
+          }
+        },
+        {
+          "name": "postPost",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/posts"
+          }
+        },
+        {
+          "name": "updatePost",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/posts/:postId"
+          }
+        },
+        {
+          "name": "deletePost",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/posts/:postId"
+          }
+        },
+        {
+          "name": "getCategories",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/posts/categories/"
+          }
+        },
+        {
+          "name": "getKeywords",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/posts/keywords/"
+          }
+        },
+        {
+          "name": "getPostBySlug",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/posts/slug/:slug"
+          }
+        },
+        {
+          "name": "postLikeOnPost",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/posts/:postId/likes"
+          }
+        },
+        {
+          "name": "postDislikeOnPost",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/posts/:postId/dislikes"
+          }
+        },
+        {
+          "name": "getPosts",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/posts"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Comment Routes",
+      "item": [
+        {
+          "name": "getComment",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/comments/:commentId"
+          }
+        },
+        {
+          "name": "updateComment",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/comments/:commentId"
+          }
+        },
+        {
+          "name": "deleteComment",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/comments/:commentId"
+          }
+        },
+        {
+          "name": "getCommentsOnPost",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/posts/:postId/comments"
+          }
+        },
+        {
+          "name": "postCommentOnPost",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/posts/:postId/comments"
+          }
+        },
+        {
+          "name": "getCommentsOnComment",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/comments/:commentId/replies"
+          }
+        },
+        {
+          "name": "postCommentOnComment",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/comments/:commentId/replies"
+          }
+        },
+        {
+          "name": "postLikeOnComment",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/comments/:commentId/likes"
+          }
+        },
+        {
+          "name": "postDisLikeOnComment",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/comments/:commentId/dislikes"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Routes",
+      "item": [
+        {
+          "name": "deleteUser",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/admin/users/:userId"
+          }
+        },
+        {
+          "name": "deletePost",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/admin/posts/:postId"
+          }
+        },
+        {
+          "name": "deleteComment",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/admin/comments/:commentId"
+          }
+        }
+      ]
+    }
+  ]
+}
