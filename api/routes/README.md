@@ -47,3 +47,4 @@ This directory contains the routes for the blog application. Each route correspo
 - `DELETE /api/v1/admin/users/:userId`: Delete a specific user by ID.
 - `DELETE /api/v1/admin/posts/:postId`: Delete a specific post by ID.
 - `DELETE /api/v1/admin/comments/:commentId`: Delete a specific comment by ID.
+- `POST /api/v1/admin/users/:userId/role`: Update role of a specific user by ID.

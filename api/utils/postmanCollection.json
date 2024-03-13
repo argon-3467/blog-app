@@ -256,6 +256,13 @@
             "method": "DELETE",
             "url": "{{baseUrl}}/api/v1/admin/comments/:commentId"
           }
+        },
+        {
+          "name": "updateUserRole",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/admin/users/:userId/role"
+          }
         }
       ]
     }

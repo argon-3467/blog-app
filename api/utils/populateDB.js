@@ -139,7 +139,7 @@ function createUser(_, i) {
     profilePicture: faker.image.url(),
     posts: [],
     comments: [],
-    role: Math.random() < 0.05 ? "admin" : "member",
+    role: "member",
   });
 
   return user;

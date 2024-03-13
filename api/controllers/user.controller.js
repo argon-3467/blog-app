@@ -1,5 +1,6 @@
 import asyncErrorHandler from "../utils/asyncErrorHandler.js";
 import User from "../models/user.model.js";
+import CustomError from "../utils/CustomError.js";
 
 const getMe = asyncErrorHandler(async function (req, res, next) {
   res.status(200).json({ status: "success", message: "Not implemented yet!" });
@@ -18,11 +19,9 @@ const getUser = asyncErrorHandler(async function (req, res, next) {
   const user = await User.findById(userId).select("-__v");
 
   if (!user) {
-    return res.status(404).json({
-      status: "fail",
-      message: `Can not find user with id: ${userId}`,
-      data: {},
-    });
+    return next(
+      new CustomError(`Can not find user with id: ${userId}`, 404, "NotFound")
+    );
   }
 
   res.status(200).json({

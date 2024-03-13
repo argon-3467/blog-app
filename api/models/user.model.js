@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import validator from "validator";
 import uniqueValidator from "mongoose-unique-validator";
 import bcrypt from "bcryptjs";
+import CustomError from "../utils/CustomError.js";
 
 // Use the README.md of models directory for description.
 const UserSchema = new mongoose.Schema(
@@ -43,7 +44,7 @@ const UserSchema = new mongoose.Schema(
     comments: [
       {
         type: mongoose.Types.ObjectId,
-        ref: "Post",
+        ref: "Comment",
       },
     ],
     role: {
@@ -63,6 +64,20 @@ UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
 
   this.password = await bcrypt.hash(this.password, 12);
+  next();
+});
+
+// Protect the 'role' field
+UserSchema.pre("save", async function (next) {
+  if (this.isModified("role")) {
+    if (this.role === "admin") {
+      throw new CustomError(
+        "Use admin route for the 'admin' role",
+        403,
+        "Forbidden"
+      );
+    }
+  }
   next();
 });
 
