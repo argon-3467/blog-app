@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import validator from "validator";
 import uniqueValidator from "mongoose-unique-validator";
+import User from "./user.model.js";
+import reactionSchema from "./reaction.schema.js";
 
 // Use the README.md of models directory for description.
 const PostSchema = new mongoose.Schema(
@@ -40,32 +42,19 @@ const PostSchema = new mongoose.Schema(
     ],
     slug: {
       type: String,
+      required: true,
       trim: true,
       unique: true,
       validate: [validator.isSlug, "Slug is not URL safe"],
     },
-    private: {
+    isPrivate: {
       type: Boolean,
       default: false,
     },
-    comments: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "Comment",
-      },
-    ],
-    likes: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "User",
-      },
-    ],
-    dislikes: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "User",
-      },
-    ],
+    reactions: {
+      type: [reactionSchema],
+      default: [],
+    },
   },
   { timestamps: true }
 );

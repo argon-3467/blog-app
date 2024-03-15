@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import User from "./user.model.js";
+import reactionSchema from "./reaction.schema.js";
 
 const CommentSchema = new mongoose.Schema(
   {
@@ -21,24 +23,10 @@ const CommentSchema = new mongoose.Schema(
       required: [true, "Entity is required"],
       refPath: "commentEntityModel",
     },
-    replies: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "Comment",
-      },
-    ],
-    likes: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "User",
-      },
-    ],
-    dislikes: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "User",
-      },
-    ],
+    reactions: {
+      type: [reactionSchema],
+      default: [],
+    },
   },
   { timestamps: true }
 );

@@ -12,11 +12,20 @@
 - [x] Create [Comment Model](./api/models/comment.model.js)
 - [x] Implement Initial Global Error handling [contoller](./api/controllers/error.controller.js)
 - [x] Create Auth [routes](./api/routes/auth.router.js) and [controller](./api/controllers/auth.controller.js)
-- [ ] Create User routes and controller
-- [ ] Create a API features class with features like: filter, sort, limit, paginate
-- [ ] Create Post routes and controller
-- [ ] Create Comment routes and controller
+- [x] Create a json file to import routes in Postman as a collection
+- [x] Write a script to populate database with dummy data
+- [x] Create Fake routes and controller files
+- [x] Remove double referncing from schemas (Much faster creation and updates)
+- [x] Add reactions to comments and posts schemas
+- [x] Update the [populateDB.js](./api/utils/populateDB.js) script because of schema change
+- [x] Update the auth [controller](./api/controllers/auth.controller.js) due to schema changes
+- [x] Create User routes and controller
+- [x] Create a API features class with features like: limit, paginate
+- [x] Create Post routes and controller
+- [x] Create Comment routes and controller
+- [ ] Decide and Implement the delete routes
 - [ ] Create Admin routes and controller
+- [ ] Add filter, sort methods to Api features
 
 ## Todos Client
 
