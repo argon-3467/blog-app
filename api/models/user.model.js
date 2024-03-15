@@ -41,18 +41,6 @@ const UserSchema = new mongoose.Schema(
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
       validate: [validator.isURL, "profilePicture is not a valid URL"],
     },
-    posts: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "Post",
-      },
-    ],
-    comments: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "Comment",
-      },
-    ],
     role: {
       type: String,
       enum: {
@@ -74,6 +62,7 @@ UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
 
   this.password = await bcrypt.hash(this.password, 12);
+  this.passwordUpdatedAt = new Date();
   next();
 });
 
@@ -85,6 +74,14 @@ UserSchema.pre("save", async function (next) {
         "Use admin route for the 'admin' role",
         403,
         "Forbidden"
+      );
+    }
+
+    if (this.role === "ghost") {
+      throw new CustomError(
+        "'ghost' role is reserved for Deleted accounts",
+        400,
+        "BadRequest"
       );
     }
   }

@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import validator from "validator";
 import uniqueValidator from "mongoose-unique-validator";
+import User from "./user.model.js";
+import reactionSchema from "./reaction.schema.js";
 
 // Use the README.md of models directory for description.
 const PostSchema = new mongoose.Schema(
@@ -53,19 +55,6 @@ const PostSchema = new mongoose.Schema(
       type: [reactionSchema],
       default: [],
     },
-    ],
-    likes: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "User",
-      },
-    ],
-    dislikes: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "User",
-      },
-    ],
   },
   { timestamps: true }
 );
