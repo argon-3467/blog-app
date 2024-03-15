@@ -19,18 +19,19 @@ This directory contains the routes for the blog application. Each route correspo
 
 ## Post Routes
 
-- `GET /api/v1/posts`: Get all public posts.
-- `GET /api/v1/posts/:postId`: Get a specific post by ID.
 - `GET /api/v1/posts/categories/`: Get all categories.
 - `GET /api/v1/posts/keywords/`: Get all keywords
-- `GET /api/v1/posts/slug/:slug`: Get a specific post by its slug.
-- `POST /api/v1/posts`: Create a new post (verifyMember).
+- `GET /api/v1/posts/:postId`: Get a specific post by ID.
 - `PUT /api/v1/posts/:postId`: Update a specific post by ID (verifySelf).
 - `DELETE /api/v1/posts/:postId`: Delete a specific post by ID (verifySelf).
-- `POST /api/v1/posts/:postId/likes`: Like a specific post (verifyMember).
-- `POST /api/v1/posts/:postId/dislikes`: DisLike a specific post (verifyMember).
+- `GET /api/v1/posts/me`: Get all posts of the current User (verifyMember).
+- `GET /api/v1/posts/slug/:slug`: Get a specific post by its slug.
+- `POST /api/v1/posts`: Create a new post (verifyMember).
 - `GET /api/v1/posts/:postId/comments`: Get all comments for a specific post.
 - `POST /api/v1/posts/:postId/comments`: Create a new comment for a specific post (verifyMember).
+- `POST /api/v1/posts/:postId/reaction`: React on a specific post (verifyMember).
+- `GET /api/v1/posts`: Get all public posts.
+- `GET /api/v1/posts/me`: Get all posts of current User (verifyMember).
 
 ## Comment Routes
 
@@ -39,8 +40,7 @@ This directory contains the routes for the blog application. Each route correspo
 - `DELETE /api/v1/comments/:commentId`: Delete a specific comment by ID (verifySelf).
 - `GET /api/v1/comments/:commentId/replies`: Get all comments on the comment
 - `POST /api/v1/comments/:commentId/replies`: Post Comment on Comment (verifyMember).
-- `POST /api/v1/comments/:commentId/likes`: Like a specific comment (verifyMember).
-- `POST /api/v1/comments/:commentId/dislikes`: Dislike a specific comment (verifyMember).
+- `POST /api/v1/posts/:postId/reaction`: React on a specific comment (verifyMember).
 
 ## Admin Routes (verifyAdmin)
 

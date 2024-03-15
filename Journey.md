@@ -19,11 +19,13 @@
 - [x] Add reactions to comments and posts schemas
 - [x] Update the [populateDB.js](./api/utils/populateDB.js) script because of schema change
 - [x] Update the auth [controller](./api/controllers/auth.controller.js) due to schema changes
-- [ ] Create User routes and controller
-- [ ] Create a API features class with features like: filter, sort, limit, paginate
-- [ ] Create Post routes and controller
-- [ ] Create Comment routes and controller
+- [x] Create User routes and controller
+- [x] Create a API features class with features like: limit, paginate
+- [x] Create Post routes and controller
+- [x] Create Comment routes and controller
+- [ ] Decide and Implement the delete routes
 - [ ] Create Admin routes and controller
+- [ ] Add filter, sort methods to Api features
 
 ## Todos Client
 

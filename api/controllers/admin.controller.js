@@ -21,8 +21,19 @@ const updateUserRole = asyncErrorHandler(async function (req, res, next) {
 
   res.status(200).json({
     status: "success",
-    message: `Role for user with id: ${req.params.userId} changed ${user.role}`,
+    message: `Role for user with id: ${req.params.userId} changed to ${user.role}. Other properties are ignored.`,
     data: { user },
   });
 });
-export { updateUserRole };
+
+const deleteUserComp = asyncErrorHandler(async function (req, res, next) {
+  res.status(200).json({ status: "success", message: "Not implemented yet!" });
+});
+const deletePostComp = asyncErrorHandler(async function (req, res, next) {
+  res.status(200).json({ status: "success", message: "Not implemented yet!" });
+});
+const deleteCommentComp = asyncErrorHandler(async function (req, res, next) {
+  res.status(200).json({ status: "success", message: "Not implemented yet!" });
+});
+
+export { updateUserRole, deleteUserComp, deletePostComp, deleteCommentComp };

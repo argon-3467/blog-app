@@ -5,8 +5,7 @@ import {
   deleteComment,
   getCommentsOnComment,
   postCommentOnComment,
-  postLikeOnComment,
-  postDisLikeOnComment,
+  postReactionOnComment,
 } from "../controllers/comment.controller.js";
 import { verifyMember, verifySelf } from "../controllers/auth.controller.js";
 
@@ -15,13 +14,12 @@ const router = express.Router();
 router
   .route("/:commentId")
   .get(getComment)
-  .put(verifySelf, updateComment)
-  .delete(verifySelf, deleteComment);
+  .put(verifyMember, verifySelf, updateComment)
+  .delete(verifyMember, verifySelf, deleteComment);
 
 router
   .route("/:commentId/replies")
   .get(getCommentsOnComment)
   .post(verifyMember, postCommentOnComment);
-router.post("/:commentId/likes", verifyMember, postLikeOnComment);
-router.post("/:commentId/dislikes", verifyMember, postDisLikeOnComment);
+router.post("/:commentId/reaction", verifyMember, postReactionOnComment);
 export default router;

@@ -66,6 +66,7 @@ export default function (err, req, res, next) {
   if (err.name == "ValidationError") err = validationErrorHandler(err);
   if (err.name == "TokenExpiredError") err = tokenExpiredErrorHandler(err);
   if (err.name == "JsonWebTokenError") err = jwtErrorHandler(err);
+  if (err.code == 31254) err = limitFieldsError(err);
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";
 

@@ -1,5 +1,7 @@
 import express from "express";
 import {
+  getPosts,
+  getMyPosts,
   getPost,
   postPost,
   updatePost,
@@ -7,9 +9,7 @@ import {
   getCategories,
   getKeywords,
   getPostBySlug,
-  postLikeOnPost,
-  postDislikeOnPost,
-  getPosts,
+  postReactionOnPost,
 } from "../controllers/post.controller.js";
 import {
   getCommentsOnPost,
@@ -19,23 +19,22 @@ import { verifySelf, verifyMember } from "../controllers/auth.controller.js";
 
 const router = express.Router();
 
+router.route("/").get(getPosts).post(verifyMember, postPost);
+router.get("/me", verifyMember, getMyPosts);
+router.get("/categories", getCategories);
+router.get("/keywords", getKeywords);
+
 router
   .route("/:postId")
   .get(getPost)
-  .put(verifySelf, updatePost)
-  .delete(verifySelf, deletePost);
-
-router.get("/categories", getCategories);
-router.get("/keywords", getKeywords);
+  .put(verifyMember, verifySelf, updatePost)
+  .delete(verifyMember, verifySelf, deletePost);
 router.get("/slug/:slug", getPostBySlug);
 
 router
   .route("/:postId/comments")
   .get(getCommentsOnPost)
   .post(verifyMember, postCommentOnPost);
-router.post("/:postId/likes", verifyMember, postLikeOnPost);
-router.post("/:postId/dislikes", verifyMember, postDislikeOnPost);
-
-router.route("/").get(getPosts).post(verifyMember, postPost);
+router.post("/:postId/reaction", verifyMember, postReactionOnPost);
 
 export default router;
