@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 // Make sure you have the MONOG_URI variable in the .env file or have the mongodb service running on "mongodb://localhost:27017/"
-// You need to disable the uniqueValidator plugin at line no. 59 in user.model.js and at line no. 74 in post.model.js
+// You need to disable the uniqueValidator plugin at line no. 54 in user.model.js and at line no. 60 in post.model.js
 // The reason for this is because this plugin checks uniqueness asynchronously and that means you can't save the document before it has checked the uniqueness.
 
 // Run the script with `node --env-file=.env api/utils/populateDB.js`
@@ -49,16 +49,16 @@ let keywords = [
   "DIY Home Decor",
 ];
 
+const reactions = ["like", "dislike", "love", "haha", "wow", "sad", "angry"];
+
 const users_len = 100;
 let users = [];
 const posts_len = 100;
 let posts = [];
 const comments_len = 200;
 let comments = [];
-const replies_len = 200;
-let replies = [];
-const likesCap = 70;
-const dislikesCap = 50;
+const reactionsCapPost = 50;
+const reactionsCapComment = 20;
 
 import mongoose from "mongoose";
 const mongoDB = process.env.MONGO_URI;
@@ -77,11 +77,8 @@ async function main() {
   posts = fakeDocuments(posts_len, createPost);
   console.log("Created Posts");
 
-  comments = fakeDocuments(comments_len, createComment);
+  fakeDocuments(comments_len, createComment);
   console.log("Created Comments");
-
-  replies = fakeDocuments(replies_len, createReply);
-  console.log("Created Replies (i.e. comment on comment)");
 
   console.log("Saving Users to DB");
   await saveFakeDocuments(users);
@@ -94,10 +91,6 @@ async function main() {
   console.log("Saving Comments to DB");
   await saveFakeDocuments(comments);
   console.log("Saved Comments to DB");
-
-  console.log("Saving Replies to DB");
-  await saveFakeDocuments(replies);
-  console.log("Saved Replies to DB");
 
   console.log("Debug: Closing mongoose");
   mongoose.connection.close();
@@ -137,21 +130,11 @@ function createUser(_, i) {
     email: "user_" + i + "@blog.app",
     password: "12345678",
     profilePicture: faker.image.url(),
-    posts: [],
-    comments: [],
     role: "member",
   });
 
   return user;
 }
-
-Set.prototype.difference = function (setB) {
-  var difference = new Set(this);
-  for (var elem of setB) {
-    difference.delete(elem);
-  }
-  return difference;
-};
 
 /**
  * Generates a fake Post Model document.
@@ -163,9 +146,8 @@ Set.prototype.difference = function (setB) {
 function createPost(_, i) {
   const author = randomFromArray(users);
   const keywordsIndices = Array.from(randomIndices(3, keywords.length));
-  const likesSet = randomIndices(likesCap, users.length);
-  const dislikeSet = randomIndices(dislikesCap, users.length).difference(
-    likesSet
+  const reactionIndices = Array.from(
+    randomIndices(reactionsCapPost, users.length)
   );
   const post = new Post({
     title: faker.lorem.words(),
@@ -175,12 +157,9 @@ function createPost(_, i) {
     category: randomFromArray(categories),
     keywords: keywordsIndices.map((i) => keywords[i]),
     slug: "slug-number-" + i,
-    private: Math.random() < 0.1,
-    comments: [],
-    likes: Array.from(likesSet).map((i) => users[i]),
-    dislikes: Array.from(dislikeSet).map((i) => users[i]),
+    isPrivate: Math.random() < 0.1,
+    reactions: reactionIndices.map((i) => createReaction(i)),
   });
-  author.posts.push(post);
   return post;
 }
 /**
@@ -192,53 +171,24 @@ function createPost(_, i) {
  */
 function createComment(_, i) {
   const author = randomFromArray(users);
+  const commentEntityModel = Math.random() < 0.6 ? "Post" : "Comment";
+  const entityId =
+    commentEntityModel == "Post"
+      ? randomFromArray(posts)
+      : randomFromArray(comments);
   const post = randomFromArray(posts);
-  const likesSet = randomIndices(likesCap, users.length);
-  const dislikeSet = randomIndices(dislikesCap, users.length).difference(
-    likesSet
+  const reactionIndices = Array.from(
+    randomIndices(reactionsCapComment, users.length)
   );
   const comment = new Comment({
     content: faker.lorem.sentences(),
     author,
-    commentEntityModel: "Post",
-    entityId: post,
-    replies: [],
-    likes: Array.from(likesSet).map((i) => users[i]),
-    dislikes: Array.from(dislikeSet).map((i) => users[i]),
+    commentEntityModel,
+    entityId,
+    reactions: reactionIndices.map((i) => createReaction(i)),
   });
-  author.comments.push(comment);
-  post.comments.push(comment);
-
+  comments.push(comment);
   return comment;
-}
-
-/**
- * Generates a fake Comment Model document (comment on comment)
- *
- * @param {any} _ - The current element being processed in the array. This argument is not used in the function
- * @param {number} i - The index of the current element being processed in the array.
- * @returns {Object} A fake Comment Model document.
- */
-function createReply(_, i) {
-  const author = randomFromArray(users);
-  const comment = randomFromArray(comments);
-  const likesSet = randomIndices(likesCap, users.length);
-  const dislikeSet = randomIndices(dislikesCap, users.length).difference(
-    likesSet
-  );
-  const reply = new Comment({
-    content: faker.lorem.sentences(),
-    author,
-    commentEntityModel: "Comment",
-    entityId: comment,
-    replies: [],
-    likes: Array.from(likesSet).map((i) => users[i]),
-    dislikes: Array.from(dislikeSet).map((i) => users[i]),
-  });
-  author.comments.push(comment);
-  comment.replies.push(reply);
-
-  return reply;
 }
 
 /* Helper functions */
@@ -270,4 +220,13 @@ function randomIndices(len, size) {
   }
 
   return set;
+}
+
+function createReaction(i) {
+  const userId = users[i];
+  const reaction = randomFromArray(reactions);
+  return {
+    userId,
+    reaction,
+  };
 }
