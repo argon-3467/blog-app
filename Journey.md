@@ -17,7 +17,8 @@
 - [x] Create Fake routes and controller files
 - [x] Remove double referncing from schemas (Much faster creation and updates)
 - [x] Add reactions to comments and posts schemas
-- [x] Update the populateDB.js script because of schema change
+- [x] Update the [populateDB.js](./api/utils/populateDB.js) script because of schema change
+- [x] Update the auth [controller](./api/controllers/auth.controller.js) due to schema changes
 - [ ] Create User routes and controller
 - [ ] Create a API features class with features like: filter, sort, limit, paginate
 - [ ] Create Post routes and controller
