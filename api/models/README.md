@@ -8,14 +8,15 @@ This directory contains the data models for the blog application. Each model rep
   - `username`: A unique identifier for the user. (required)
   - `email`: The user's unique email address.
   - `password`: The user's hashed password. (required)
+  - `passwordUpdatedAt`: Date at which password was updated.
   - `profilePicture`: The url for the user's profile picture otherwise a default
-  - `posts`: An array of references to the posts created by the user.
-  - `comments`: An array of references to the comments made by the user.
-  - `role`: The user’s role, which can be ‘member’, ‘admin’, or ‘visitor’.
+  - `role`: The user’s role, which can be ‘member’, ‘admin’, or ‘ghost’.
 - ### Plugins
   - `uniqueValidator`: Checks unique fields and throws ValidationError if not unique
 - ### Middlewares
-  - `pre save`: Hash the password before saving to the database
+  - `pre save`
+    1. Hash the password before saving to the database.
+    2. Protect the role field of the user.
 - ### Methods
   - `verifyPassword`: Compares user's provided password with password in database.
 

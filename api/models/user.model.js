@@ -29,6 +29,12 @@ const UserSchema = new mongoose.Schema(
       minLength: [8, "Password must be at least 8 characters"],
       select: false,
     },
+    passwordUpdatedAt: {
+      type: Date,
+      default: function () {
+        return new Date();
+      },
+    },
     profilePicture: {
       type: String,
       default:
@@ -49,7 +55,11 @@ const UserSchema = new mongoose.Schema(
     ],
     role: {
       type: String,
-      enum: ["member", "visiter", "admin"],
+      enum: {
+        values: ["member", "ghost", "admin"],
+        // other roles are reserved
+        message: "Role can only be 'member'",
+      },
       default: "member",
     },
   },

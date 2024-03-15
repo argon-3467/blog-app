@@ -40,19 +40,19 @@ const PostSchema = new mongoose.Schema(
     ],
     slug: {
       type: String,
+      required: true,
       trim: true,
       unique: true,
       validate: [validator.isSlug, "Slug is not URL safe"],
     },
-    private: {
+    isPrivate: {
       type: Boolean,
       default: false,
     },
-    comments: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "Comment",
-      },
+    reactions: {
+      type: [reactionSchema],
+      default: [],
+    },
     ],
     likes: [
       {
